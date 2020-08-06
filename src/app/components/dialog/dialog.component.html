@@ -1,0 +1,136 @@
+<app-spinner class="spinner" *ngIf="spinner"></app-spinner>
+<h2 mat-dialog-title [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}">{{title}}</h2>
+<mat-dialog-content>
+
+    <div *ngIf="data.img">
+        <img style="width: 100%;" src="./../../../assets/placeholder-img.jpg">
+    </div>
+    <div *ngIf="data.agregar">
+        <img style="width: 100%;" src="./../../../assets/placeholder-img.jpg">
+        <h3 [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}">{{data.obj.nombre}}</h3>
+        <p>{{data.obj.ingredientes}}</p>
+        <mat-form-field style="width: 100%;">
+            <mat-label>Adicionales</mat-label>
+            <textarea matInput></textarea>
+        </mat-form-field>
+        <div class="dialog-grid-form">
+            <div>
+                <mat-label [ngStyle]="{'color':config? config.color2 : '#1f1f1f'}">ARS
+                    {{data.obj.precios[0].valor | currency}}
+                </mat-label>
+            </div>
+            <div>
+                <mat-form-field style="width: 110px">
+                    <mat-label>Cantidad*</mat-label>
+                    <input matInput type="number" placeholder="Cantidad" [(ngModel)]="cantModel" cdkFocusInitial
+                        autocomplete="off">
+                    <button mat-button *ngIf="cantModel" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="cantModel=''">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="data.agregarDelivery">
+        <img style="width: 100%;" src="./../../../assets/placeholder-img.jpg">
+        <h3 [ngStyle]="{'color': '#1f1f1f'}">{{data.obj.nombre}}</h3>
+        <p>{{data.obj.ingredientes}}</p>
+        <mat-form-field style="width: 100%;">
+            <mat-label>Adicionales</mat-label>
+            <textarea matInput></textarea>
+        </mat-form-field>
+        <div class="dialog-grid-form">
+            <div>
+                <mat-label [ngStyle]="{'color':'#1f1f1f'}">ARS
+                    
+                </mat-label>
+            </div>
+            <div>
+                <mat-form-field style="width: 110px">
+                    <mat-label>Cantidad*</mat-label>
+                    <input matInput type="number" placeholder="Cantidad" [(ngModel)]="cantModel" cdkFocusInitial
+                        autocomplete="off">
+                    <button mat-button *ngIf="cantModel" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="cantModel=''">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="data.agregarPromo">
+        <h3 [ngStyle]="{'color': '#1f1f1f'}">{{data.obj.nombre}}</h3>
+        <p>{{data.obj.ingredientes}}</p>
+        <div class="dialog-grid-form">
+            <div>
+                <mat-label [ngStyle]="{'color':'#1f1f1f'}">
+                    ${{data.obj.precio}}             
+                </mat-label>
+            </div>
+            <div>
+                <mat-form-field style="width: 110px">
+                    <mat-label>Cantidad*</mat-label>
+                    <input matInput type="number" placeholder="Cantidad" [(ngModel)]="cantModel" cdkFocusInitial
+                        autocomplete="off">
+                    <button mat-button *ngIf="cantModel" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="cantModel=''">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="data.confirmar">
+        <h4 mat-dialog-title [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}">Datos para el envío</h4>
+        <div class="example-container">
+            <form [formGroup]="confirmForm">
+                <mat-form-field appearance="fill">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="nombre">
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>Teléfono</mat-label>
+                    <input type="number" placeholder="Cod. Area + Número" matInput formControlName="telefono">
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>Dirección</mat-label>
+                    <input matInput formControlName="direccion">
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>Observación</mat-label>
+                    <textarea matInput formControlName="observacion"></textarea>
+                </mat-form-field>
+            </form>
+        </div>
+    </div>
+</mat-dialog-content>
+
+
+
+
+<mat-dialog-actions align="end">
+    <div *ngIf="data.img">
+        <button mat-button mat-dialog-close [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}">Cerrar</button>
+    </div>
+    <div *ngIf="data.agregar || data.agregarDelivery || data.agregarPromo">
+        <button mat-button mat-dialog-close>Cancelar</button>
+        <button mat-button [mat-dialog-close]="true" (click)="addItemComanda(cantModel);"
+            [ngStyle]="{'color': cantModel ?  (config ? config.color1 : '#1f1f1f') : '#c2beb6'}"
+            [disabled]="!cantModel">Aceptar</button>
+    </div>
+
+    <div *ngIf="data.confirmar">
+        <button mat-button mat-dialog-close>Cancelar</button>
+        <button mat-button (click)="submitconfirmForm();"
+            [ngStyle]="{'color': confirmForm.valid ?  '#1f1f1f' : '#c2beb6'}"
+            [disabled]="!confirmForm.valid">Confirmar</button>
+    </div>
+
+</mat-dialog-actions>

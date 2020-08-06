@@ -1,0 +1,127 @@
+@import '~@angular/material/theming';
+//We import our custom scss component here
+@import './styles';
+
+@include mat-core();
+
+$my-color-1: (
+  50: #7fdddd,
+  100: #7faedd,
+  200: #7f7fdd,
+  300: #7faedd,
+  400: #7faedd,
+  500: #7faedd,
+  600: #7faedd,
+  700: #7faedd,
+  800: #7faedd,
+  900: #7faedd,
+  A100: #7faedd,
+  A200: #7faedd,
+  A400: #7faedd,
+  A700: #7faedd,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+
+$my-color-2: (
+  50: #7fdddd,
+  100: #7faedd,
+  200: #7f7fdd,
+  300: #7faedd,
+  400: #7faedd,
+  500: #7faedd,
+  600: #7faedd,
+  700: #7faedd,
+  800: #7faedd,
+  900: #7faedd,
+  A100: #7faedd,
+  A200: #7faedd,
+  A400: #7faedd,
+  A700: #7faedd,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+
+
+$my-color-3: (
+  50: #7fdddd,
+  100: #7faedd,
+  200: #7f7fdd,
+  300: #7faedd,
+  400: #7faedd,
+  500: #7faedd,
+  600: #7faedd,
+  700: #7faedd,
+  800: #7faedd,
+  900: #7faedd,
+  A100: #7faedd,
+  A200: #7faedd,
+  A400: #7faedd,
+  A700: #7faedd,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+
+
+
+$theme-primary: mat-palette($my-color-1);
+$theme-accent:  mat-palette($my-color-2);
+$theme-warn:    mat-palette($my-color-3);
+$theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
+//
+@include theme-color-grabber($theme);
+@include angular-material-theme($theme);
+.light {
+  $light-primary: mat-palette($my-color-1, 200,300, 900);
+  $light-accent:  mat-palette($mat-light-blue, 600, 100, 800);
+  $light-warn:    mat-palette($mat-red, 600);
+  $light-theme: mat-dark-theme($light-primary, $light-accent, $light-warn);
+  @include theme-color-grabber($light-theme);
+  @include angular-material-theme($light-theme);
+
+}

@@ -1,0 +1,68 @@
+<app-header></app-header>
+<div class="goto-menu-btn">
+    <button mat-flat-button color="primary"  (click)="gotoMenu()"
+        [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}">
+        <span class="material-icons">
+            restaurant_menu
+        </span>
+        Ir Al Menú</button>
+</div>
+<div [@listAnimation]="categoria?.length">
+    <div class="list-custom-box" *ngFor="let item of categoria | listFilter: searchModel">
+        <div class="grid-detalle-menu-item-title">
+            <div class="header-image" (click)="openDialogImg(categoria)"
+                [ngStyle]="{'background-image': 'url(./../assets/placeholder-img.jpg)'}">
+            </div>
+            <div class="list-custom-box__title" [ngStyle]="{'color':config? config.color2 : '#1f1f1f'}">{{item.nombre}}
+            </div>
+            <div></div>
+            <div class="list-custom-box__subtitle" [ngStyle]="{'color':config? config.color2 : '#1f1f1f'}">
+                {{item.ingredientes}}</div>
+            <div></div>
+            <div>
+                <div class="grid-detalle-menu-item-actions">
+                    <div>
+                        <mat-label [ngStyle]="{'color':config? config.color2 : '#1f1f1f'}"
+                            *ngIf="item.precios[1].valor === 0 || item.precios[2].valor === 0 || item.precios[3].valor === 0">
+                            ARS {{item.precios[0].valor | currency}}
+                        </mat-label>
+                        <mat-form-field
+                            *ngIf="item.precios[1].valor !== 0 || item.precios[2].valor !== 0 || item.precios[3].valor !== 0"
+                            style="width: 125px;margin-top: 10px;">
+                            <mat-label [ngStyle]="{'color':config? config.color2 : '#1f1f1f'}">ARS
+                                {{item.precios[0].valor | currency}}
+                            </mat-label>
+                            <mat-select [(ngModel)]="selectedValue">
+                                <mat-option [value]="item.precios[1].id" *ngIf="item.precios[1].valor !== 0">
+                                    <span [ngStyle]="{'color':config? config.color2 : '#1f1f1f'}">USD
+                                        {{item.precios[1].valor | currency}}</span>
+                                </mat-option>
+
+                                <mat-option [value]="item.precios[2].id">
+                                    <span [ngStyle]="{'color':config? config.color2 : '#1f1f1f'}"
+                                        *ngIf="item.precios[2].valor !== 0">EUR
+                                        {{item.precios[2].valor | currency}}</span>
+                                </mat-option>
+
+
+                                <mat-option [value]="item.precios[3].id">
+                                    <span [ngStyle]="{'color':config? config.color2 : '#1f1f1f'}"
+                                        *ngIf="item.precios[3].valor !== 0">BRL
+                                        {{item.precios[3].valor | currency}}</span>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <button mat-stroked-button color="primary"
+                            [ngStyle]="{'color':config? config.color2 : '#1f1f1f'}" (click)="openDialog(item);">
+                            Agregar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer (eventClicked)="childEventClicked($event)" [comanda]="comanda"></app-footer>

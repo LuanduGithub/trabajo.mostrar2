@@ -1,0 +1,76 @@
+<app-header></app-header>
+
+<div class="items-container">
+    <button mat-flat-button color="primary" class="goto-menu-btn" (click)="gotoMenu()"
+        [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}">
+        <span class="material-icons">
+            restaurant_menu
+        </span>
+        Ir Al Menú</button>
+    <div class="list-custom-box " *ngFor="let comanda of comandas; let i = index">
+        <div class="grid-comanda">
+            <div class="header-image" [ngStyle]="{'background-image': 'url(./../assets/placeholder-img.jpg)'}">
+            </div>
+            <div class="list-custom-box__title" [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}">
+                {{comanda.nombre}}
+            </div>
+            <div style="font-size: .8rem;position: relative;top: 2px;" [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}"><small
+                    style="font-size: .6rem;">ARS</small>
+                </div>
+        </div>
+
+        <div class="comanda-actions">
+            <div class="comandas-cant" [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}">
+                Cantidad: {{comanda.cant}}
+            </div>
+
+
+            <button mat-icon-button color="primary" (click)="addItem(comanda)">
+                <span class="material-icons" [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}">
+                    exposure_plus_1
+                </span>
+            </button>
+
+            <button mat-icon-button color="primary" (click)="removeItem(comanda)"
+                [disabled]="disableRemoveBtn && comanda.cant === 1">
+                <span class="material-icons"
+                    [ngStyle]="{'color':!disableRemoveBtn && comanda.cant !== 1? config? config.color1 : '#1f1f1f' : '#c2beb6'}">
+                    exposure_neg_1
+                </span>
+            </button>
+
+
+
+            <button mat-icon-button color="primary" (click)="deleteItem(i)" style="position: relative;top:-2px;">
+                <span class="material-icons" [ngStyle]="{'color': '#f75e50'}">
+                    delete
+                </span>
+            </button>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="list-custom-box">
+        <div class="grid-comanda">
+            <div>Cubiertos:</div>
+            <div></div>
+            <div><small style="font-size: .6rem;">ARS</small> $50</div>
+        </div>
+    </div>
+    <div class="list-custom-box">
+        <div class="grid-comanda">
+            <div>TOTAL:</div>
+            <div></div>
+            <div><small style="font-size: .6rem;">ARS</small> {{total  | currency}}</div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<app-footer></app-footer>

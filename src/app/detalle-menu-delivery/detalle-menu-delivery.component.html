@@ -1,0 +1,94 @@
+<app-header></app-header>
+<app-spinner class="spinner" *ngIf="spinner"></app-spinner>
+
+
+
+<div style="padding:0px; background-color: #e8df9c;top: 80px;position: fixed;width: 100%;z-index: 10;">
+    <mat-form-field style="width: 84%;margin:0 8%;">
+        <mat-label [ngStyle]="{'color':  '#1f1f1f'}">
+            <mat-icon>search</mat-icon> Buscar
+        </mat-label>
+        <input matInput type="text" placeholder="Buscar" [ngModel]="searchModel"
+            (ngModelChange)="updateSearchModel($event)">
+        <button mat-button *ngIf="searchModel" matSuffix mat-icon-button aria-label="Clear" (click)="searchModel=''">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</div>
+
+
+
+
+<div style="height: 180px; width: 95%; margin: 145px auto 10px;" *ngIf="promociones?.length">
+    <swiper class="swiper-container" [config]="configSwiper">
+        <div *ngFor="let promocion of promociones">
+            <div class="promotion-box-grid">
+                <div style="align-self: center;border-right: 1px dashed #be5947;padding-right: 15px;">
+                    <div class="promotion-box-grid__promo">
+                        Promo:
+                    </div>
+                    <div class="promotion-box-grid__promo-text">
+                        {{promocion.nombre}}
+                    </div>
+                    <div class="promotion-box-grid__ingredient">Ingredientes:</div>
+                    <div class="promotion-box-grid__ingredient-text">
+                        {{promocion.ingredientes}}
+                    </div>
+                </div>
+
+                <div class="promotion-box-grid__valor">
+                    ${{promocion.precio | number}}
+                    <br>
+                    <button mat-stroked-button color="primary" style="margin-top: 10px;" [ngStyle]="{'color': '#1f1f1f'}" (click)="openDialog(promocion);">
+                        Agregar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </swiper>
+</div>
+
+<div [@listAnimation]="categorias?.length" class="items-container"
+    [ngStyle]="{'margin-top': promociones?.length ? '0' : '140px'}">
+    <div class="list-custom-box" *ngFor="let categoria of categorias | listFilter: searchModel">
+        <div class="grid-comanda">
+            <div class="list-custom-box__title" [ngStyle]="{'color':  '#1f1f1f'}">
+                {{categoria.nombre}}<br>
+                <small *ngIf="!categoria.subcategorias.length">Elige entre nuestras {{categoria.platos.length}}
+                    opciones.</small>
+            </div>
+            <button *ngIf="!categoria.subcategorias.length" mat-icon-button color="warn"
+                (click)="gotoDetalles(categoria)">
+                <span>
+                    Ir
+                </span>
+            </button>
+        </div>
+
+        <mat-accordion *ngIf="categoria.subcategorias.length">
+            <mat-expansion-panel *ngFor="let sub of categoria.subcategorias"
+                style="box-shadow: none; background-color: transparent;">
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="font-size: .8rem;" [ngStyle]="{'color':  '#1f1f1f'}">
+                        Opciones
+                    </mat-panel-title>
+                    <mat-panel-description>
+
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div>
+                    {{sub.nombre}}
+                    <button mat-icon-button color="warn" (click)="gotoDetalles(categoria)">
+                        <span>
+                            Ir
+                        </span>
+                    </button>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+    </div>
+</div>
+
+
+<app-footer (eventClicked)="childEventClicked($event)" [comanda]="comanda"></app-footer>

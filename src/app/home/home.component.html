@@ -1,0 +1,58 @@
+<app-spinner class="spinner" *ngIf="spinner"></app-spinner>
+
+<div class="container" [ngStyle]="{'background-color': '#e8df9c'}">
+
+  <div class="container__box">
+
+    <div class="img-logo-menuo">
+      <img src="./../../../assets/menuo.svg" />
+    </div>
+
+    <div class="img-logo" *ngIf="config">
+      <img src="{{config?.logo}}" />
+    </div>
+
+    <div *ngIf="!config" style="text-align: center; padding: 10px 0 20px;">
+      <h1>Bienvenidos</h1>
+    </div>
+
+    <div class="title" *ngIf="config">
+      <h4>Bienvenidos</h4>
+      <h1 [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}" *ngIf="config">{{config?.text}}</h1>
+      <h3 *ngIf="config">{{config?.subtitulo}}</h3>
+
+    </div>
+    <button mat-stroked-button (click)="gotoDetalleMenu()" [ngStyle]="{'background-color': config? config.color1 : '#1f1f1f'}"
+      class="button-large-go-menu" style="padding: 15px 0;" *ngIf="config">
+      <span class="material-icons" style="position: relative; top:-2px; margin-right: 5px;">
+        room_service
+      </span>IR AL MENÚ
+    </button>
+
+
+    <div style="width: 80%; margin:0 auto">
+      <mat-form-field class="localModel-form-field">
+        <mat-label>Buscar Local</mat-label>
+        <input matInput type="text" [(ngModel)]="localModel">
+        <button mat-button *ngIf="localModel" matSuffix mat-icon-button aria-label="Clear" (click)="localModel=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+
+    <mat-grid-list style="width: 90%; margin:20px auto" cols="3" rowHeight="150px" gutterSize="10px">
+      <mat-grid-tile (click)="gotoDeliveryMenu(local)"
+        style="padding:10px; box-sizing: border-box; border-radius: 18px; border: 1px solid #efefef"
+        *ngFor="let local of locals">
+        <!-- <mat-grid-tile-header>verso</mat-grid-tile-header> -->
+
+        <img style="width: 64%;" src="{{local.logo}}" />
+
+
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+
+
+</div>

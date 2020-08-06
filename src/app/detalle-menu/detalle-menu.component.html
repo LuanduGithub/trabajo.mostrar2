@@ -1,0 +1,88 @@
+<app-header></app-header>
+<app-spinner class="spinner" *ngIf="spinner"></app-spinner>
+
+
+
+<div style="padding:0px; background-color: #e8df9c;top: 80px;position: fixed;width: 100%;z-index: 10;">
+    <mat-form-field style="width: 84%;margin:0 8%;">
+        <mat-label [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}">
+            <mat-icon>search</mat-icon> Buscar
+        </mat-label>
+        <input matInput type="text" placeholder="Buscar" [ngModel]="searchModel"
+            (ngModelChange)="updateSearchModel($event)">
+        <button mat-button *ngIf="searchModel" matSuffix mat-icon-button aria-label="Clear" (click)="searchModel=''">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</div>
+
+
+
+
+<div style="height: 180px; width: 95%; margin: 145px auto 10px;">
+
+    <swiper class="swiper-container" [config]="configSwiper">
+        <div *ngFor="let promocion of promociones">
+            <div class="promotion-box">
+
+                <div class="promotion-box__promo">Promo:</div>
+
+                <div class="promotion-box__promo-text">
+                    {{promocion.nombre}}
+                </div>
+
+                <div class="promotion-box__ingredient">Ingredientes:</div>
+
+                <div class="promotion-box__ingredient-text">
+                    {{promocion.ingredientes}}
+                </div>
+                <div class="promotion-box__valor">
+                    {{promocion.precios[0].valor | currency}}
+                </div>
+
+            </div>
+        </div>
+    </swiper>
+</div>
+
+<div [@listAnimation]="categorias?.length" class="items-container">
+    <div class="list-custom-box" *ngFor="let categoria of categorias | listFilter: searchModel">
+        <div class="grid-comanda">
+            <div class="list-custom-box__title" [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}">
+                {{categoria.nombre}}<br>
+                <small *ngIf="!categoria.subcategorias.length">Elige entre nuestras {{categoria.platos.length}} opciones.</small>
+            </div>
+            <button *ngIf="!categoria.subcategorias.length" mat-icon-button color="warn"
+                (click)="gotoDetalles(categoria)">
+                <span>
+                    Ir
+                </span>
+            </button>
+        </div>
+
+        <mat-accordion *ngIf="categoria.subcategorias.length">
+            <mat-expansion-panel *ngFor="let sub of categoria.subcategorias" style="box-shadow: none; background-color: transparent;">
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="font-size: .8rem;" [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}">
+                        Opciones
+                    </mat-panel-title>
+                    <mat-panel-description >
+
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div>
+                    {{sub.nombre}}
+                    <button mat-icon-button color="warn" (click)="gotoDetalles(categoria)">
+                        <span>
+                            Ir
+                        </span>
+                    </button>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+    </div>
+</div>
+
+
+<app-footer (eventClicked)="childEventClicked($event)"></app-footer>

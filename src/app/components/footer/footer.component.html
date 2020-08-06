@@ -1,0 +1,49 @@
+<div class="grid-footer" style="background-color:#e8df9c">
+    <div>
+        <button mat-icon-button [matMenuTriggerFor]="lang" [ngStyle]="{'color': config? config.color1 : '#c2beb6'}">
+            <span class="material-icons">
+                language
+            </span>
+        </button>
+        <mat-menu #lang="matMenu">
+            <button mat-menu-item (click)="onClick('1')">English</button>
+            <button mat-menu-item (click)="onClick('0')">Español</button>
+        </mat-menu>
+    </div>
+
+
+
+    <button [disabled]="!config" mat-icon-button (click)= "userCallService(config.id)" [ngStyle]="{'color': config? config.color1 : '#c2beb6'}">
+        
+        <span class="material-icons" [ngClass]="{'bell' : calling}">
+            notifications
+        </span>
+    </button>
+
+    <button  mat-icon-button [ngStyle]="{'color': comanda? (config ? config.color1 : '#1f1f1f') : '#c2beb6'}" (click)="gotoComandaSection()"
+        [disabled]="!comanda">
+        <span class="material-icons" *ngIf="comanda">
+            shopping_cart
+        </span>
+
+        <span class="material-icons" *ngIf="!comanda">
+            remove_shopping_cart
+        </span>
+    </button>
+
+    <button mat-icon-button
+        [ngStyle]="{'color': comanda? (config ? config.color1 : '#1f1f1f') : '#c2beb6'}" [disabled]="!comanda">
+        <span class="material-icons" *ngIf="comanda">
+            credit_card
+        </span>
+        <span class="material-icons" *ngIf="!comanda">
+            crop_landscape
+        </span>
+    </button>
+
+    <button mat-stroked-button color="primary" (click)="openDialogConfirmar()" [ngStyle]="{'color': comanda? (config ? config.color1 : '#1f1f1f') : '#c2beb6'}" [disabled]="!comanda">
+        Confirmar Pedido
+    </button>
+
+
+</div>

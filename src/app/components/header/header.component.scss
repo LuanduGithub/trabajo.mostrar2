@@ -1,0 +1,33 @@
+.button-large {
+    width: 84%;
+    margin: 100px 8% 0;
+}
+.spacer {
+    flex: 1 1 auto;
+}
+
+.grid-header {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    padding: 30px 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    background-color: #fff;
+    width: 100%;
+    button {
+        align-self: center;
+        justify-self: center;
+        img{
+            width: 30px;
+        }
+    }
+    div {
+        align-self: center;
+        justify-self: center;
+        text-transform: capitalize;
+        font-size: 1.5rem;
+    }
+}
+
+
