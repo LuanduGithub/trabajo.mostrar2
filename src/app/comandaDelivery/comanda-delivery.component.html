@@ -1,22 +1,28 @@
 <app-header></app-header>
 
 <div class="items-container">
-    <button mat-flat-button color="primary" class="goto-menu-btn" (click)="gotoMenu()"
-        [ngStyle]="{'color': '#1f1f1f'}">
-        <span class="material-icons">
-            restaurant_menu
-        </span>
-        Ir Al Menú</button>
+    <div class="goto-menu-btn">
+        <button mat-flat-button color="primary" style="width: 100%;" (click)="gotoMenu()"
+            [ngStyle]="{'color': '#1f1f1f'}">
+            <span class="material-icons">
+                restaurant_menu
+            </span>
+            Ir Al Menú</button>
+    </div>
+
     <div class="list-custom-box " *ngFor="let comanda of comandas; let i = index">
         <div class="grid-comanda">
-            <div class="header-image" [ngStyle]="{'background-image': 'url(./../assets/placeholder-img.jpg)'}">
+            <div *ngIf="!comanda.foto" class="header-image"
+                [ngStyle]="{'background-image': 'url(./../assets/placeholder-img.jpg)'}">
+            </div>
+            <div *ngIf="comanda.foto" class="header-image" [ngStyle]="{'background-image': 'url('+ comanda.foto +')'}">
             </div>
             <div class="list-custom-box__title" [ngStyle]="{'color': '#1f1f1f'}">
                 {{comanda.nombre}}
             </div>
-            <div style="font-size: .8rem;position: relative;top: 2px;" [ngStyle]="{'color': '#1f1f1f'}"><small
-                    style="font-size: .6rem;">ARS</small>
-                </div>
+            <div style="font-size: .9rem;position: relative;top: 2px;" [ngStyle]="{'color': '#1f1f1f'}">
+                ${{comanda.precios}}
+            </div>
         </div>
 
         <div class="comanda-actions">
@@ -49,15 +55,14 @@
         </div>
     </div>
 
-
-
-
-
     <div class="list-custom-box">
-        <div class="grid-comanda">
+        <div class="grid-comanda-detalle">
+            <div>Costo Envío:</div>
+            <div>${{config?.delivery}}</div>
+        </div>
+        <div class="grid-comanda-detalle">
             <div>TOTAL:</div>
-            <div></div>
-            <div><small style="font-size: .6rem;">ARS</small> {{total  | currency}}</div>
+            <div>${{total}}</div>
         </div>
     </div>
 </div>

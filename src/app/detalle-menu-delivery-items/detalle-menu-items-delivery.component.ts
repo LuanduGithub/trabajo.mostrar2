@@ -30,7 +30,7 @@ export class DetalleMenuDeliveryItemsComponent implements OnInit {
 
   @Output() eventComanda = new EventEmitter<Event>();
   comanda = false;
-
+  cartEffect = false;
   constructor(
     private dataShare: DataShare,
     public dialog: MatDialog,
@@ -51,6 +51,7 @@ export class DetalleMenuDeliveryItemsComponent implements OnInit {
     this.searchModel = value;
   }
   openDialog(obj) {
+    this.cartEffect = false;
     const dialogRef = this.dialog.open(DialogComponent, {
       data: {
         obj,
@@ -65,7 +66,8 @@ export class DetalleMenuDeliveryItemsComponent implements OnInit {
     });
   }
 
-  openDialogImg(obj) {
+  openDialogImg(obj, event) {
+    event.stopPropagation();
     const dialogRef = this.dialog.open(DialogComponent, {
       data: {
         obj,
@@ -82,8 +84,9 @@ export class DetalleMenuDeliveryItemsComponent implements OnInit {
     this.router.navigate(['detalleMenuDelivery']);
   }
 
-  comandaWithItem(resutl): void {
-    this.comanda = resutl;
+  comandaWithItem(result): void {
+    this.cartEffect = result;
+    this.comanda = result;
   }
   gotoMenu() {
     this.router.navigate(['detalleMenuDelivery']);

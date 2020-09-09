@@ -30,7 +30,7 @@ export class DetalleMenuItemsComponent implements OnInit {
 
   @Output() eventComanda = new EventEmitter<Event>();
   comanda = false;
-
+  cartEffect = false;
   constructor(
     private dataShare: DataShare,
     public dialog: MatDialog,
@@ -64,6 +64,7 @@ export class DetalleMenuItemsComponent implements OnInit {
   }
 
   openDialogImg(obj) {
+    this.cartEffect = false;
     const dialogRef = this.dialog.open(DialogComponent, {
       data: {
         obj,
@@ -80,8 +81,9 @@ export class DetalleMenuItemsComponent implements OnInit {
     this.router.navigate(['detalleMenu']);
   }
 
-  comandaWithItem(resutl): void {
-    this.comanda = resutl;
+  comandaWithItem(result): void {
+    this.cartEffect = result;
+    this.comanda = result;
   }
   gotoMenu() {
     this.router.navigate(['detalleMenu']);

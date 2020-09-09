@@ -1,4 +1,12 @@
 <div class="grid-footer" style="background-color:#e8df9c">
+
+    <button *ngIf="localDelivery"  mat-icon-button (click)="gotoHome()"
+        [ngStyle]="{'color': config? config.color1 : '#c2beb6'}">
+        <span class="material-icons" [ngClass]="{'bell' : calling}">
+            home
+        </span>
+    </button>
+
     <div>
         <button mat-icon-button [matMenuTriggerFor]="lang" [ngStyle]="{'color': config? config.color1 : '#c2beb6'}">
             <span class="material-icons">
@@ -11,28 +19,43 @@
         </mat-menu>
     </div>
 
+    <button *ngIf="!localDelivery"  mat-icon-button 
+        [ngStyle]="{'color': config? config.color1 : '#c2beb6'}">
 
-
-    <button [disabled]="!config" mat-icon-button (click)= "userCallService(config.id)" [ngStyle]="{'color': config? config.color1 : '#c2beb6'}">
-        
         <span class="material-icons" [ngClass]="{'bell' : calling}">
             notifications
         </span>
     </button>
 
-    <button  mat-icon-button [ngStyle]="{'color': comanda? (config ? config.color1 : '#1f1f1f') : '#c2beb6'}" (click)="gotoComandaSection()"
-        [disabled]="!comanda">
-        <span class="material-icons" *ngIf="comanda">
-            shopping_cart
-        </span>
+    <div>
+        <button mat-icon-button style="position: relative;"  [matMenuTriggerFor]="shopingCar"
+            [ngStyle]="{'color': comanda? (config ? config.color1 : '#1f1f1f') : '#c2beb6'}" [disabled]="!comanda">
+            <span class="material-icons" [ngClass]="{'cd-cart': cartEffect}" *ngIf="comanda">
+               shopping_cart
+            </span>
 
-        <span class="material-icons" *ngIf="!comanda">
-            remove_shopping_cart
-        </span>
-    </button>
+            <span class="material-icons" *ngIf="!comanda">
+                remove_shopping_cart
+            </span>
+        </button>
 
-    <button mat-icon-button
-        [ngStyle]="{'color': comanda? (config ? config.color1 : '#1f1f1f') : '#c2beb6'}" [disabled]="!comanda">
+        <mat-menu #shopingCar="matMenu">
+            <button mat-menu-item (click)="gotoComanda()" >
+                <span class="material-icons" style="position: relative;top: 7px;">
+                    shopping_cart
+                </span>
+                Ir
+            </button>
+            <button mat-menu-item (click)="cleanComanda()">
+                <span class="material-icons" style="position: relative;top: 7px;">
+                    remove_shopping_cart
+                </span>
+                Limpiar
+            </button>
+        </mat-menu>
+    </div>
+
+    <button mat-icon-button disabled (click)="gotoPedidoConfirmado()" [ngStyle]="{'color': config ? config.color1 : '#1f1f1f'}">
         <span class="material-icons" *ngIf="comanda">
             credit_card
         </span>
@@ -41,7 +64,8 @@
         </span>
     </button>
 
-    <button mat-stroked-button color="primary" (click)="openDialogConfirmar()" [ngStyle]="{'color': comanda? (config ? config.color1 : '#1f1f1f') : '#c2beb6'}" [disabled]="!comanda">
+    <button mat-stroked-button color="primary" (click)="gotoPedidoConfirmar()"
+        [ngStyle]="{'color': comanda? (config ? config.color1 : '#1f1f1f') : '#c2beb6'}" [disabled]="!comanda">
         Confirmar Pedido
     </button>
 

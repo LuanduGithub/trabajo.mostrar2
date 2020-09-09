@@ -10,7 +10,7 @@
         </mat-label>
         <input matInput type="text" placeholder="Buscar" [ngModel]="searchModel"
             (ngModelChange)="updateSearchModel($event)">
-        <button mat-button *ngIf="searchModel" matSuffix mat-icon-button aria-label="Clear" (click)="searchModel=''">
+        <button *ngIf="searchModel" matSuffix mat-icon-button aria-label="Clear" (click)="searchModel=''">
             <mat-icon>close</mat-icon>
         </button>
     </mat-form-field>
@@ -19,7 +19,7 @@
 
 
 
-<div style="height: 180px; width: 95%; margin: 145px auto 10px;" *ngIf="promociones?.length">
+<div style="height: 180px; width: 95%;max-width: 800px; margin: 145px auto 0;" *ngIf="promociones?.length">
     <swiper class="swiper-container" [config]="configSwiper">
         <div *ngFor="let promocion of promociones">
             <div class="promotion-box-grid">
@@ -37,9 +37,16 @@
                 </div>
 
                 <div class="promotion-box-grid__valor">
-                    ${{promocion.precio | number}}
+                    <div *ngIf="promocion.foto" class="header-image" [ngStyle]="{'background-image': 'url(' + promocion.foto + ')'}">
+                    </div>
+                    <div *ngIf="!promocion.foto" class="header-image" [ngStyle]="{'background-image': 'url(./../assets/placeholder-img.jpg)'}">
+                    </div>
                     <br>
-                    <button mat-stroked-button color="primary" style="margin-top: 10px;" [ngStyle]="{'color': '#1f1f1f'}" (click)="openDialog(promocion);">
+                    ${{promocion.precio | number}}
+
+                    <br>
+                    <button mat-stroked-button color="primary" style="margin-top: 10px;"
+                        [ngStyle]="{'color': '#1f1f1f'}" (click)="openDialog(promocion);">
                         Agregar
                     </button>
                 </div>
@@ -51,18 +58,19 @@
 <div [@listAnimation]="categorias?.length" class="items-container"
     [ngStyle]="{'margin-top': promociones?.length ? '0' : '140px'}">
     <div class="list-custom-box" *ngFor="let categoria of categorias | listFilter: searchModel">
-        <div class="grid-comanda">
+        <div class="grid-comanda" *ngIf="!categoria.subcategorias.length" (click)="gotoDetalles(categoria)">
             <div class="list-custom-box__title" [ngStyle]="{'color':  '#1f1f1f'}">
                 {{categoria.nombre}}<br>
-                <small *ngIf="!categoria.subcategorias.length">Elige entre nuestras {{categoria.platos.length}}
+                <small *ngIf="!categoria.subcategorias.length" style="text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.01);" [ngStyle]="{'color':'#7faedd'}">Elige entre nuestras {{categoria.platos.length}}
                     opciones.</small>
             </div>
-            <button *ngIf="!categoria.subcategorias.length" mat-icon-button color="warn"
+            <!-- <button *ngIf="!categoria.subcategorias.length" mat-stroked-button color="warn"
                 (click)="gotoDetalles(categoria)">
                 <span>
                     Ir
                 </span>
-            </button>
+            </button> -->
+        
         </div>
 
         <mat-accordion *ngIf="categoria.subcategorias.length">
@@ -70,15 +78,17 @@
                 style="box-shadow: none; background-color: transparent;">
                 <mat-expansion-panel-header>
                     <mat-panel-title style="font-size: .8rem;" [ngStyle]="{'color':  '#1f1f1f'}">
-                        Opciones
+                        {{categoria.nombre}}
                     </mat-panel-title>
                     <mat-panel-description>
 
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <div>
+
+
+                <div class="list-custom-box__title" [ngStyle]="{'color':  '#1f1f1f'}">
                     {{sub.nombre}}
-                    <button mat-icon-button color="warn" (click)="gotoDetalles(categoria)">
+                    <button mat-stroked-button color="warn" (click)="gotoDetalles(categoria)">
                         <span>
                             Ir
                         </span>
@@ -91,4 +101,4 @@
 </div>
 
 
-<app-footer (eventClicked)="childEventClicked($event)" [comanda]="comanda"></app-footer>
+<app-footer (eventClicked)="childEventClicked($event)" [comanda]="comanda" [cartEffect]="cartEffect"></app-footer>

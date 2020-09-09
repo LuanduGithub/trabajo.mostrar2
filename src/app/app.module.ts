@@ -16,6 +16,7 @@ import { MainPipe } from './core/filterPipe/filter.pipe.module';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +35,8 @@ import { CommonModule } from '@angular/common';
     MatCardModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

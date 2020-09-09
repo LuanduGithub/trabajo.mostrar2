@@ -1,0 +1,29 @@
+<app-header></app-header>
+<app-spinner class="spinner" *ngIf="spinner"></app-spinner>
+
+<div class="items-container">
+    <div class="list-custom-box pagado">
+        <div class="pagado__icon">
+            <span class="material-icons" style="font-size: 70px;"
+                [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}">
+                check_circle
+            </span>
+            <h1 [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}">¡Pagado con Éxito!</h1>
+        </div>
+
+        <div class="pagado__data">
+            <div [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}">Pedido número:
+                <strong>{{pedido}}</strong></div>
+            <div [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}">Transacción número:
+                <strong>{{transaccion}}</strong></div>
+        </div>
+        <button mat-flat-button color="primary" class="goto-menu-btn" (click)="gotoMenu()"
+            [ngStyle]="{'color': '#1f1f1f'}">
+            <span class="material-icons">
+                restaurant_menu
+            </span>
+            Ir Al Menú</button>
+    </div>
+</div>
+
+<app-footer></app-footer>

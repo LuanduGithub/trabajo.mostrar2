@@ -34,7 +34,7 @@
         </mat-menu>
     </div>
 
-    <div [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}">{{'menuo' || config.text}}</div>
+    <div [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}">{{config?.text || 'Menuo' }}</div>
 
     <div>
         <button mat-icon-button [matMenuTriggerFor]="menu" [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}">
@@ -71,12 +71,3 @@
     </div>
 
 </div>
-
-<!-- 
-
-
-<button mat-stroked-button class="button-large" [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}" color="primary">
-    <span class="material-icons">
-        notifications_active
-    </span>Llamar al Servicio
-</button> -->

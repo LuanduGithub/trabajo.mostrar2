@@ -8,6 +8,14 @@
   background-color: #fff;
   width: 100%;
   box-sizing: border-box;
+  button {
+    align-self: center;
+    justify-self: center;
+  }
+  > div {
+    align-self: center;
+    justify-self: center;
+  }
   a {
     align-self: center;
     justify-self: center;
@@ -259,4 +267,32 @@
   100% {
     transform: rotate(0);
   }
+}
+
+.cd-cart {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  opacity: 0;
+  animation: cd-item-slide 0.5s forwards;
+}
+
+@keyframes cd-item-slide {
+  0% {
+    font-size: 100px;
+    left: -20px;
+    transform: translateY(80px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    font-size: 24px;
+    opacity: 1;
+  }
+}
+
+.badge {
+  padding: 3px;
+  font-size: 0.5rem;
+  color: #fff;
 }

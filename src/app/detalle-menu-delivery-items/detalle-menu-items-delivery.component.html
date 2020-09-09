@@ -7,34 +7,33 @@
         Ir Al Menú</button>
 </div>
 <div [@listAnimation]="categoria?.length">
-    <div class="list-custom-box" *ngFor="let item of categoria | listFilter: searchModel">
-        <div class="grid-detalle-menu-item-title">
-            <div class="header-image" (click)="openDialogImg(categoria)"
-                [ngStyle]="{'background-image': 'url(./../assets/placeholder-img.jpg)'}">
-            </div>
-            <div class="list-custom-box__title" [ngStyle]="{'color': '#1f1f1f'}">{{item.nombre}}
-            </div>
-            <div></div>
-            <div class="list-custom-box__subtitle" [ngStyle]="{'color': '#1f1f1f'}">
-                {{item.ingredientes}}</div>
-            <div></div>
-            <div>
-                <div class="grid-detalle-menu-item-actions">
-                    <div>
-                        <mat-label [ngStyle]="{'color':'#1f1f1f'}">
-                            ARS
-                        </mat-label>
+    <div class="items-container">
+        <div class="list-custom-box" *ngFor="let item of categoria | listFilter: searchModel">
+            <div class="grid-detalle-menu-item-title" (click)="openDialog(item);">
+                <div *ngIf="!item.foto" class="header-image" (click)="openDialogImg(item, $event)"
+                    [ngStyle]="{'background-image': 'url(./../assets/placeholder-img.jpg)'}">
+                </div>
+                <div *ngIf="item.foto" class="header-image" (click)="openDialogImg(item, $event)"
+                    [ngStyle]="{'background-image': 'url('+ item.foto +')'}">
+                </div>
+                <div class="list-custom-box__title" [ngStyle]="{'color': '#1f1f1f'}">
+                    {{item.nombre}}
+                    <div class="list-custom-box__subtitle" [ngStyle]="{'color': '#7faedd'}">
+                        {{item.ingredientes}}
                     </div>
-
-                    <div>
-                        <button mat-stroked-button color="primary" [ngStyle]="{'color': '#1f1f1f'}"
-                            (click)="openDialog(item);">
-                            Agregar
-                        </button>
-                    </div>
+                </div>
+                <div class="list-custom-box__title">
+                    <!-- <button mat-stroked-button color="warn" (click)="gotoDetalles(categoria)">
+                    <span class="material-icons">
+                        add_shopping_cart
+                    </span>
+                </button> -->
+                    <mat-label [ngStyle]="{'color':'#1f1f1f'}">
+                        ${{item.precio}}
+                    </mat-label>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<app-footer (eventClicked)="childEventClicked($event)" [comanda]="comanda"></app-footer>
+<app-footer (eventClicked)="childEventClicked($event)" [comanda]="comanda" [cartEffect]="cartEffect"></app-footer>

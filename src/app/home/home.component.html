@@ -1,5 +1,4 @@
 <app-spinner class="spinner" *ngIf="spinner"></app-spinner>
-
 <div class="container" [ngStyle]="{'background-color': '#e8df9c'}">
 
   <div class="container__box">
@@ -22,34 +21,31 @@
       <h3 *ngIf="config">{{config?.subtitulo}}</h3>
 
     </div>
-    <button mat-stroked-button (click)="gotoDetalleMenu()" [ngStyle]="{'background-color': config? config.color1 : '#1f1f1f'}"
-      class="button-large-go-menu" style="padding: 15px 0;" *ngIf="config">
+    <button mat-stroked-button (click)="gotoDetalleMenu()"
+      [ngStyle]="{'background-color': config? config.color1 : '#1f1f1f'}" class="button-large-go-menu"
+      style="padding: 15px 0;" *ngIf="config">
       <span class="material-icons" style="position: relative; top:-2px; margin-right: 5px;">
         room_service
       </span>IR AL MENÚ
     </button>
 
-
     <div style="width: 80%; margin:0 auto">
       <mat-form-field class="localModel-form-field">
-        <mat-label>Buscar Local</mat-label>
-        <input matInput type="text" [(ngModel)]="localModel">
+        <mat-label [ngStyle]="{'color':  '#1f1f1f'}">
+          <mat-icon>search</mat-icon> Buscar local
+        </mat-label>
+        <input matInput type="text" [ngModel]="localModel" (ngModelChange)="updateSearchModel($event)">
         <button mat-button *ngIf="localModel" matSuffix mat-icon-button aria-label="Clear" (click)="localModel=''">
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
     </div>
 
-
     <mat-grid-list style="width: 90%; margin:20px auto" cols="3" rowHeight="150px" gutterSize="10px">
       <mat-grid-tile (click)="gotoDeliveryMenu(local)"
-        style="padding:10px; box-sizing: border-box; border-radius: 18px; border: 1px solid #efefef"
-        *ngFor="let local of locals">
-        <!-- <mat-grid-tile-header>verso</mat-grid-tile-header> -->
-
-        <img style="width: 64%;" src="{{local.logo}}" />
-
-
+        style="padding:10px; box-sizing: border-box; border-radius: 18px; background-color: rgb(246 246 246)"
+        *ngFor="let local of locals | listFilter: localModel">
+        <img style="width: 64%; max-width: 130px;" src="{{local.logo}}" />
       </mat-grid-tile>
     </mat-grid-list>
   </div>

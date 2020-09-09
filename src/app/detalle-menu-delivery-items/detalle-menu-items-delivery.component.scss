@@ -17,57 +17,80 @@
     border-radius: 50px;
     background-size: cover;
     background-position: center center;
+    align-self: center;
+    justify-self: center;
 }
-
+@media screen and (min-width: 800px) {
+    .items-container {
+        max-width: 800px;
+        display: grid;
+        margin: 20px auto 0;
+        grid-template-columns: 3fr 3fr 3fr;
+        padding: 5px;
+        .list-custom-box{
+            text-align: center;
+            width: 95%;
+            margin: 5px auto;
+            box-sizing: border-box;
+            &__title {
+                padding:10px;
+            }
+        }
+        .grid-detalle-menu-item-title {
+            display: initial;
+            //grid-template-columns: 1fr 4fr 1fr;
+        }
+        .header-image{
+            margin: 5px auto;
+        }
+    }
+}
 .list-custom-box {
-    padding: 15px 20px 10px;
+    max-width: 800px;
+    padding: 10px;
     border-radius: 15px;
     width: 95%;
-    margin: 10px auto;
+    margin: 8px auto;
     box-sizing: border-box;
-    margin-top: 15px;
     position: relative;
     background: #f5f5f5;
-    border: 2px solid #f1f1f1;
+    /* border: 2px solid #f1f1f1;
     box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14),
-        0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+        0px 1px 5px 0px rgba(0, 0, 0, 0.12); */
     &__title {
-        font-size: 1rem;
-        padding: 10px 0;
+        font-size: 0.9rem;
         text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        align-self: center;
+        padding:0 10px;
     }
     &__subtitle {
-        font-size: 0.8rem;
-        text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-        padding: 10px 0;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.02);
-        margin-bottom: 10px;
+        font-size: 0.7rem;
+        text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.01);
     }
 }
 
 .grid-detalle-menu-item-title {
     display: grid;
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: 1fr 4fr 1fr;
 }
-.grid-detalle-menu-item-actions{
-    display:grid;
+.grid-detalle-menu-item-actions {
+    display: grid;
     grid-template-columns: 2fr 2fr;
-    div:first-child{
+    div:first-child {
         align-self: center;
-        justify-self: left;
+        justify-self: center;
     }
-    div:last-child{
+    div:last-child {
         align-self: center;
-        justify-self: right;
+        justify-self: center;
     }
 }
 
-.goto-menu-btn{
+.goto-menu-btn {
     width: 95%;
+    max-width: 800px;
     margin: 105px auto 0;
-    button{
+    button {
         width: 100%;
     }
 }
-

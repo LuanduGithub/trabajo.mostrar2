@@ -12,14 +12,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CommonModule } from '@angular/common';
-
-
+import { MainPipe } from '../core/filterPipe/filter.pipe.module';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   declarations: [
     HomeComponent
   ],
   imports: [
+    MainPipe,
     CommonModule,
     HomeComponentRoutingModule,
     ComponentsModule,
@@ -31,7 +32,7 @@ import { CommonModule } from '@angular/common';
     MatGridListModule,
     MatInputModule,
     FormsModule,
-
+    GoogleMapsModule
   ],
   exports: [HomeComponent],
   providers: [

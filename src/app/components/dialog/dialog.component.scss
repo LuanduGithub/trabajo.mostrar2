@@ -1,11 +1,25 @@
-.dialog-grid-form{
+.dialog-grid-form {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    div{
+    div {
         align-self: center;
     }
-    div:last-child{
+    div:last-child {
         justify-self: right;
+    }
+}
+
+.confirm-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    mat-radio-button {
+        margin: 5px;
     }
 }

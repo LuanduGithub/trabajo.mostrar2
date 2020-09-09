@@ -28,7 +28,6 @@ export class HeaderComponent implements OnInit {
       }
     });
   }
-
   ngOnInit(): void {
     const comandaStorage = localStorage.getItem('comanda');
     if (comandaStorage) {
@@ -44,16 +43,9 @@ export class HeaderComponent implements OnInit {
   previusPage(): void {
     this.location.back();
   }
-
-
-
-
   gotoComanda(): void {
     this.router.navigate(['comanda']);
   }
-
-
-
 }
 
 

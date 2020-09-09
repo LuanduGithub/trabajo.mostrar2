@@ -50,6 +50,16 @@ body {
   top: 0;
   left: 0;
 }
-.swiper-button-next, .swiper-button-prev{
-  display: none!important;
+.swiper-button-next,
+.swiper-button-prev {
+  display: none !important;
+}
+
+button {
+  border-radius: 30px !important;
+}
+
+.mat-snack-bar-container {
+  background-color: #f48874!important;
+  border-radius: 18px!important;
 }

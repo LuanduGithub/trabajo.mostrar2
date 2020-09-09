@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject, EventEmitter, Output } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { HomeService } from 'src/app/home/services/home.service';
 import { FormControl } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ConfirmarPedidoService } from './../../core/confirmar/confirmar-pedido.service';
+
+
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
@@ -12,54 +12,51 @@ import { ConfirmarPedidoService } from './../../core/confirmar/confirmar-pedido.
 export class DialogComponent implements OnInit {
   title: string;
   selectedValue: string;
-  cantModel: string;
-  confirmForm: FormGroup;
+  cantModel = '1';
+  adicionalesModel: string;
+
   cantFormControl: FormControl;
   config: any;
   spinner = false;
+  userDataCompleted = false;
 
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
-    private homeService: HomeService,
     private formBuilder: FormBuilder,
-    private confirmarPedidoService: ConfirmarPedidoService
   ) { }
 
   ngOnInit(): void {
     this.title = this.data.title;
     const config = localStorage.getItem('config');
     this.config = JSON.parse(config);
-
-    this.confirmForm = this.formBuilder.group({
-      nombre: ['', Validators.required],
-      telefono: ['', Validators.required],
-      direccion: ['', Validators.required],
-      observacion: ['']
-    });
-
-
   }
-  addItemComanda(cant) {
+  addItemComanda(cant, adi) {
     const obj = [{
       item: this.data.obj,
-      cant
+      cant: parseInt(cant, 10),
+      adicionales: adi || ''
     }];
     let comanda = [] = obj;
-    if (this.data.agregarPromo) {
+    if (this.data.agregarPromo || this.data.agregarDelivery) {
       const comandaStorage = localStorage.getItem('comandaDelivery');
       if (comandaStorage) {
+        const comandaObj = JSON.parse(comandaStorage);
+        // tslint:disable-next-line: prefer-for-of
+        for (let i = 0; i < comandaObj.length; i++) {
+          if (this.data.obj.id === comandaObj[i].item.id) {
+            comandaObj[i].cant = comandaObj[i].cant + 1;
+            localStorage.setItem('comandaDelivery', JSON.stringify(comandaObj));
+            return;
+          }
+        }
         comanda = comanda.concat(JSON.parse(comandaStorage));
+        localStorage.setItem('comandaDelivery', JSON.stringify(comanda));
+        return;
       }
-      localStorage.setItem('comandaDelivery', JSON.stringify(comanda));
+      localStorage.setItem('comandaDelivery', JSON.stringify(obj));
     }
-    if (this.data.agregarDelivery) {
-      const comandaStorage = localStorage.getItem('comandaDelivery');
-      if (comandaStorage) {
-        comanda = comanda.concat(JSON.parse(comandaStorage));
-      }
-      localStorage.setItem('comandaDelivery', JSON.stringify(comanda));
-    }
+
     if (this.data.agregar) {
       const comandaStorage = localStorage.getItem('comanda');
       if (comandaStorage) {
@@ -70,36 +67,13 @@ export class DialogComponent implements OnInit {
 
   }
 
-  submitconfirmForm() {
-    this.spinner = true;
-    let comanda;
-    if (this.data.agregarDelivery) {
-      comanda = localStorage.getItem('comandaDelivery');
-      comanda = JSON.parse(comanda);
-    }
-    if (this.data.agregar) {
-      comanda = localStorage.getItem('comanda');
-      comanda = JSON.parse(comanda);
-    }
 
-    const local = localStorage.getItem('localDelivery');
-    const localId = JSON.parse(local);
 
-    const obj = {
-      localId: localId.id,
-      nombre: this.confirmForm.value.nombre,
-      telefono: this.confirmForm.value.telefono,
-      direccion: this.confirmForm.value.direccion,
-      observacion: this.confirmForm.value.observacion || '',
-      detalles: [
-        comanda
-      ]
-    };
-    this.confirmarPedidoService.postConfirmar(obj).subscribe(() => {
-      this.spinner = false;
-      this.dialogRef.close(true);
-    });
+
+  userData() {
+    this.userDataCompleted = true;
   }
+
 
 
 }

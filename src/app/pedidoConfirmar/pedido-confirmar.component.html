@@ -1,0 +1,70 @@
+<app-spinner class="spinner" *ngIf="spinner"></app-spinner>
+<app-header></app-header>
+
+<div class="items-container">
+    <div class="goto-menu-btn">
+        <button mat-flat-button color="primary" style="width: 100%;" (click)="gotoMenu()" [ngStyle]="{'color': '#1f1f1f'}">
+            <span class="material-icons">
+                restaurant_menu
+            </span>
+            Ir Al Menú</button>
+    </div>
+
+
+    <div class="list-custom-box ">
+        <h4 [ngStyle]="{'color': config? config.color1 : '#1f1f1f'}">Datos para el envío</h4>
+        <form [formGroup]="confirmForm">
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="nombre">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Teléfono</mat-label>
+                <input type="number" placeholder="Cod. Area + Número" matInput formControlName="telefono">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Dirección</mat-label>
+                <input matInput formControlName="direccion">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Observación</mat-label>
+                <textarea matInput formControlName="observacion"></textarea>
+            </mat-form-field>
+
+
+
+            <div class="radio-grid">
+                <div>
+                    <mat-radio-group class="radio-group" formControlName="tipoDelivery">
+                        <mat-radio-button value="1">Retiro</mat-radio-button>
+                        <br>
+                        <mat-radio-button value="0">Enviame</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div>
+                    <mat-radio-group class="radio-group" formControlName="formaPago">
+                        <mat-radio-button *ngFor="let forma of config?.formaspagos" value="{{forma.id}}">
+                            {{forma.descripcion}}
+                        </mat-radio-button><br>
+                    </mat-radio-group>
+                </div>
+            </div>
+
+            <div style="padding: 15px; text-align: right;">
+                <button  mat-flat-button color="primary" color="primary" (click)="submitconfirmForm();" [disabled]="!confirmForm.controls.nombre.valid || 
+                !confirmForm.controls.telefono.valid  || 
+                !confirmForm.controls.direccion.valid"
+                [ngStyle]="{'color': confirmForm.valid ?  '#1f1f1f' : '#c2beb6'}"
+                >Confirmar</button>
+           </div>
+
+        </form>
+    </div>
+</div>
+
+
+
+<app-footer></app-footer>

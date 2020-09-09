@@ -1,0 +1,20 @@
+<div class="snackbar-grid">
+    <div>
+        <img style="width: 50px;" [src]="config.logo" />
+    </div>
+    <div>
+        <span class="material-icons" style="position: relative; top:1px; font-size: 14px;">
+            favorite
+        </span>
+        Gracias por su Compra!, nos pondremos en contacto con usted en unos minutos
+        <span class="material-icons" style="position: relative; top:1px; font-size: 14px;">
+            watch_later
+        </span>
+    </div>
+    <div>
+        <button mat-stroked-button color="primary" style="margin-top: 10px;" [ngStyle]="{'color': '#1f1f1f'}"
+            (click)="closeSnackbar();">
+            Ok!
+        </button>
+    </div>
+</div>

@@ -8,10 +8,7 @@ const routes: Routes = [
     redirectTo: '',
     pathMatch: 'full'
   },
-  {
-    path: 'home/:id',
-    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
-  },
+
   {
     path: 'detalleMenu',
     loadChildren: () => import('./detalle-menu/detalle-menu.module').then(m => m.DetalleMenuModule)
@@ -31,7 +28,8 @@ const routes: Routes = [
   },
   {
     path: 'detalleMenuDeliveryItems',
-    loadChildren: () => import('./detalle-menu-delivery-items/detalle-menu-items-delivery.module').then(m => m.DetalleMenuDeliveryItemsModule)
+    loadChildren: () =>
+    import('./detalle-menu-delivery-items/detalle-menu-items-delivery.module').then(m => m.DetalleMenuDeliveryItemsModule)
   },
   {
     path: 'comanda',
@@ -40,6 +38,18 @@ const routes: Routes = [
   {
     path: 'comandaDelivery',
     loadChildren: () => import('./comandaDelivery/comanda-delivery.module').then(m => m.ComandaDeliveryModule)
+  },
+  {
+    path: 'pedidoConfirmar',
+    loadChildren: () => import('./pedidoConfirmar/pedido-confirmar.module').then(m => m.PedidoConfirmarModule)
+  },
+  {
+    path: 'pagoConfirmado',
+    loadChildren: () => import('./pedidoConfirmado/pedido-confirmado.module').then(m => m.PedidoConfirmadoModule)
+  },
+  {
+    path: 'pagoFallido',
+    loadChildren: () => import('./pedidoFallido/pedido-Fallido.module').then(m => m.PedidoFallidoModule)
   }
 ];
 

@@ -1,18 +1,17 @@
 import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router } from '@angular/router';
 import { DetalleMenuService } from './services/detalle-menu.service';
 import { Categorias } from './model/menuFull';
 import { MenuoLogo } from './../../assets/logo';
 import { DataShare } from '../core/dataShareService';
-import { HomeService } from './../home/services/home.service';
 import { listAnimation, actionAnimation } from './../core/animations';
 import { MatAccordion } from '@angular/material/expansion';
-import {
-  SwiperComponent, SwiperDirective, SwiperConfigInterface,
-  SwiperScrollbarInterface, SwiperPaginationInterface
-} from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+
+
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../components/dialog/dialog.component';
+
 
 @Component({
   selector: 'app-detalle-menu-delivery',
@@ -35,7 +34,9 @@ export class DetalleMenuDeliveryComponent implements OnInit {
   promociones: any;
 
   @Output() eventComanda = new EventEmitter<Event>();
+
   comanda = false;
+  cartEffect = false;
 
   public configSwiper: SwiperConfigInterface = {
     direction: 'horizontal',
@@ -47,21 +48,21 @@ export class DetalleMenuDeliveryComponent implements OnInit {
     pagination: false,
 
   };
+  durationInSeconds: number;
+
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private detalleMenuService: DetalleMenuService,
     private router: Router,
     private dataShare: DataShare,
     public dialog: MatDialog,
-    private homeService: HomeService
   ) { }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.menuoLogo = MenuoLogo.menuLogoSrc;
 
-    const local = localStorage.getItem('localDelivery');
+    const local = localStorage.getItem('config');
     if (local) {
       this.local = JSON.parse(local);
       this.getMenuDelivery(this.local.id);
@@ -99,6 +100,7 @@ export class DetalleMenuDeliveryComponent implements OnInit {
   }
 
   openDialog(obj) {
+    this.cartEffect = false;
     const dialogRef = this.dialog.open(DialogComponent, {
       data: {
         obj,
@@ -109,11 +111,15 @@ export class DetalleMenuDeliveryComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.comandaWithItem(result);
+
       }
     });
   }
-  comandaWithItem(resutl): void {
-    this.comanda = resutl;
+  comandaWithItem(result): void {
+    this.comanda = result;
+    this.cartEffect = result;
   }
+
+
 
 }

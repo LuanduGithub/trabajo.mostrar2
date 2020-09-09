@@ -35,7 +35,8 @@ export class ComandaDeliveryComponent implements OnInit {
         cant: com.cant,
         ingredientes: com.item.ingredientes,
         nombre: com.item.nombre,
-        precios: (com.item.precio * com.cant) + this.envioVal
+        foto: com.item.foto,
+        precios: (com.item.precio * com.cant) + this.config.delivery
       };
     });
     let total = 0;
@@ -52,7 +53,7 @@ export class ComandaDeliveryComponent implements OnInit {
     comanda = JSON.parse(comandaStorage);
     const comandaPlusOne = comanda.map(obj => {
       if (item.id === obj.item.id) {
-        obj.cant = obj.cant + 1;
+        obj.cant = parseInt(obj.cant, 10) + 1;
         this.disableRemoveBtn = false;
       }
       return obj;
